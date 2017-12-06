@@ -32,7 +32,7 @@ const getData = cb => {
       console.log(err + "get data didnt work");
       return cb(err);
     }
-    const data = users.rows;
+    const data = JSON.stringify(users.rows);
     cb(null, data);
   });
 };

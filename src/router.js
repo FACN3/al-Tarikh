@@ -20,7 +20,7 @@ const router = (req, res) => {
         });
         console.log("the users res frob backend ", JSON.stringify(users));
 
-        res.end(JSON.stringify(users));
+        res.end(users);
       }
     });
   } else if (url === "/postdata" && method === "POST") {
