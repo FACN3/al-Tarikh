@@ -2,7 +2,7 @@ const handler = require("./handler");
 
 const router = (req, res) => {
   var url = req.url;
-  console.log(url);
+  // console.log(url);
   if(url === '/' || url.includes('/public')){
       handler.publicHandler(req,res);
     }else if (url === '/users') {
@@ -11,10 +11,12 @@ const router = (req, res) => {
           console.log('router error: ' + err);
           res.writeHead(500, {"Content-Type": "text/html"});
           res.end('Erroooooooooor');
-        }
-        res.writeHead(200, {"Content-Type":"application/json"});
+        }else{
+        res.writeHead(200, {"Location":"/" , 'Content-Type':'application/json'});
+        console.log('the users res frob backend ',JSON.stringify(users));
+
         res.end(JSON.stringify(users));
-        console.log(JSON.stringify(users));
+        }
       });
     }else{
       res.end("errorrrrr");
