@@ -4,8 +4,8 @@ const connect = require("../database/db_connection");
 
 const publicHandler = (req, res) => {
   var url = req.url;
-  if(url === '/'){
-    url = '/public/index.html'
+  if (url === "/") {
+    url = "/public/index.html";
   }
   var parts = url.split(".")[1];
   var extensionType = {
@@ -16,41 +16,56 @@ const publicHandler = (req, res) => {
     json: "application/json"
   }[parts];
   fs.readFile(path.join(__dirname, "..", url), (err, data) => {
-    if(err){
-      res.writeHead(500, {"Content-Type": "text/html"});
+    if (err) {
+      res.writeHead(500, { "Content-Type": "text/html" });
       console.log(err);
       return res.end("Internal Server Erroooor");
     }
-      res.writeHead(200, {"Content-Type": extensionType});
+    res.writeHead(200, { "Content-Type": extensionType });
     res.end(data);
   });
-}
+};
 
-const getData = (cb) => {
-  connect.query(`SELECT name FROM users`, (err, users) => {
-    if(err){
+const getData = cb => {
+  connect.query(`SELECT * FROM events`, (err, users) => {
+    if (err) {
       console.log(err + "get data didnt work");
-      cb(err);
+      return cb(err);
     }
     const data = users.rows;
     cb(null, data);
   });
+};
 
-}
-
-const postData = (name,cb)=>{
-  connect.query(`INSERT INTO users(name) VALUES($1)`, [name],(err,data)=>{
+const postData = (username, title, description, date, cb) => {
+  connect.query(`SELECT id FROM users WHERE name=$1`, [username],(err,data)=>{
     if (err){
       console.log(err + "user cannot be created");
-      cb(err);
+    return  cb(err);
+
     }
-    cb(null, data);
+    const userId = data.rows[0].id;
+    console.log("passsssss");
+    console.log("passssssssss");
+    console.log("passssssssss");
 
+    console.log(username);
+    console.log(userId);
+
+
+    connect.query(
+      `INSERT INTO events(title, description, dt, user_id) VALUES ($1, $2, $3, $4)`,
+      [title, description, date, userId],
+      (err, data) => {
+        if (err) {
+          console.log(err, "Events cannot be created");
+        return  cb(err);
+        }
+        cb(null, data);
+      }
+    );
   });
-  
 
+};
 
-} 
-
-
-module.exports = {publicHandler, getData, postData};
+module.exports = { publicHandler, getData, postData };
