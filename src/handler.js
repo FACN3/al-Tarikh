@@ -27,7 +27,7 @@ const publicHandler = (req, res) => {
 }
 
 const getData = (cb) => {
-  connect.query(`SELECT * FROM users`, (err, users) => {
+  connect.query(`SELECT name FROM users`, (err, users) => {
     if(err){
       console.log(err + "get data didnt work");
       cb(err);

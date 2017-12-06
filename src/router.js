@@ -2,8 +2,10 @@ const handler = require("./handler");
 
 const router = (req, res) => {
   var url = req.url;
+  console.log(url);
   if(url === '/' || url.includes('/public')){
       handler.publicHandler(req,res);
+    }else if (url === '/users') {
       handler.getData((err,users)=>{
         if(err){
           console.log('router error: ' + err);
@@ -13,10 +15,10 @@ const router = (req, res) => {
         res.writeHead(200, {"Content-Type":"application/json"});
         res.end(JSON.stringify(users));
         console.log(JSON.stringify(users));
-
       });
     }else{
       res.end("errorrrrr");
+
     }
   }
 
