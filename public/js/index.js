@@ -17,12 +17,9 @@ function getData(err, ndata) {
   if (err) {
     console.log('GetData Error is :' + err);
   }
-  // console.log(ndata);
   var parse = JSON.parse(JSON.stringify(ndata));
   var element = document.createElement('h1');
-  // console.log('result fron end',parse);
   element.innerHTML = parse;
   document.querySelector('#container').appendChild(element);
 }
-
 request('/users', getData);

@@ -27,7 +27,7 @@ const publicHandler = (req, res) => {
 };
 
 const getData = cb => {
-  connect.query(`SELECT * FROM events`, (err, users) => {
+  connect.query(`SELECT events.title, events.description ,events.dt , users.name FROM events INNER JOIN users ON events.user_id = users.id`, (err, users) => {
     if (err) {
       console.log(err + "get data didnt work");
       return cb(err);
@@ -41,29 +41,21 @@ const postData = (username, title, description, date, cb) => {
   connect.query(`SELECT id FROM users WHERE name=$1`, [username],(err,data)=>{
     if (err){
       console.log(err + "user cannot be created");
-    return  cb(err);
+      return  cb(err);
 
     }
     const userId = data.rows[0].id;
-    console.log("passsssss");
-    console.log("passssssssss");
-    console.log("passssssssss");
-
-    console.log(username);
-    console.log(userId);
-
-
     connect.query(
       `INSERT INTO events(title, description, dt, user_id) VALUES ($1, $2, $3, $4)`,
       [title, description, date, userId],
       (err, data) => {
         if (err) {
           console.log(err, "Events cannot be created");
-        return  cb(err);
+          return  cb(err);
         }
         cb(null, data);
       }
-    );
+      );
   });
 
 };
