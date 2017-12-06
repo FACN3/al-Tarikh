@@ -35,7 +35,22 @@ const getData = (cb) => {
     const data = users.rows;
     cb(null, data);
   });
+
 }
 
+const postData = (name,cb)=>{
+  connect.query(`INSERT INTO users(name) VALUES($1)`, [name],(err,data)=>{
+    if (err){
+      console.log(err + "user cannot be created");
+      cb(err);
+    }
+    cb(null, data);
 
-module.exports = {publicHandler, getData};
+  });
+  
+
+
+} 
+
+
+module.exports = {publicHandler, getData, postData};
