@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const connect = require("../database/db_connection");
 
 const publicHandler = (req, res) => {
   var url = req.url;
@@ -11,7 +12,8 @@ const publicHandler = (req, res) => {
     css: "text/css",
     html: "text/html",
     js: "application/javascript",
-    ico: "image/x-icon"
+    ico: "image/x-icon",
+    json: "application/json"
   }[parts];
   fs.readFile(path.join(__dirname, "..", url), (err, data) => {
     if(err){
@@ -24,4 +26,16 @@ const publicHandler = (req, res) => {
   });
 }
 
-module.exports = {publicHandler};
+const getData = (cb) => {
+  connect.query(`SELECT * FROM users`, (err, users) => {
+    if(err){
+      console.log(err + "get data didnt work");
+      cb(err);
+    }
+    const data = users.rows;
+    cb(null, data);
+  });
+}
+
+
+module.exports = {publicHandler, getData};
