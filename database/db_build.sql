@@ -15,7 +15,7 @@ CREATE TABLE events(
 id SERIAL PRIMARY KEY NOT NULL,
 title VARCHAR(100),
 dt DATE,
-description VARCHAR(300),
+description TEXT,
 user_id INTEGER REFERENCES users(id)
 
 );
