@@ -6,7 +6,7 @@ Amir Marlen Hoslack
 
 ## About
 
-##### Welcome to AL SHAMS Project
+##### Welcome to AL TARIKH Project
 
 In this project we made an 'Event List' which you can use to add an event, date to the event, and more description.
 
