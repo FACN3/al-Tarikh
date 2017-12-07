@@ -27,7 +27,7 @@ const publicHandler = (req, res) => {
 };
 
 const getData = cb => {
-  connect.query(`SELECT * FROM events`, (err, users) => {
+  connect.query(`SELECT events.title, events.description ,events.dt , users.name FROM events INNER JOIN users ON events.user_id = users.id`, (err, users) => {
     if (err) {
       console.log(err + "get data didnt work");
       return cb(err);
