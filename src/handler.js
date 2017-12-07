@@ -45,13 +45,6 @@ const postData = (username, title, description, date, cb) => {
 
     }
     const userId = data.rows[0].id;
-    console.log("passsssss");
-    console.log("passssssssss");
-    console.log("passssssssss");
-
-    console.log(username);
-    console.log(userId);
-
 
     connect.query(
       `INSERT INTO events(title, description, dt, user_id) VALUES ($1, $2, $3, $4)`,

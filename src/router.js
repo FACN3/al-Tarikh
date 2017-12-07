@@ -10,7 +10,6 @@ const router = (req, res) => {
   } else if (url === "/users") {
     handler.getData((err, users) => {
       if (err) {
-        console.log("router error: " + err);
         res.writeHead(500, { "Content-Type": "text/html" });
         res.end("Erroooooooooor");
       } else {
@@ -44,7 +43,6 @@ const router = (req, res) => {
           res.end(err);
         }
 
-        console.log("User inserted into the database", result);
         res.writeHead(302, {
           Location: "/",
           "Content-Type": "application/json"
