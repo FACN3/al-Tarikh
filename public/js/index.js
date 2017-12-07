@@ -26,14 +26,16 @@ function getData(err, data) {
     var name = parse[i].name;
 
     var element = document.createElement('span');
+    element.className = 'event';
     var details = document.createElement('DETAILS');
     var summary = document.createElement('SUMMARY');
     details.textContent = description;
     summary.textContent = title;
     details.appendChild(summary);
 
-    element.innerHTML =  date + " " + "--->" + name;
-    document.querySelector('#container').appendChild(details);
+    element.appendChild(details);
+    element.innerHTML +=  date + " " + "--->" + name;
+    
     document.querySelector('#container').appendChild(element);
 
   }

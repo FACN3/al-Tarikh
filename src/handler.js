@@ -32,7 +32,7 @@ const getData = cb => {
       console.log(err + "get data didnt work");
       return cb(err);
     }
-    const data = JSON.stringify(users.rows);
+    const data = users.rows;
     cb(null, data);
   });
 };
@@ -41,7 +41,7 @@ const postData = (username, title, description, date, cb) => {
   connect.query(`SELECT id FROM users WHERE name=$1`, [username],(err,data)=>{
     if (err){
       console.log(err + "user cannot be created");
-      return  cb(err);
+    return  cb(err);
 
     }
     const userId = data.rows[0].id;
@@ -51,11 +51,11 @@ const postData = (username, title, description, date, cb) => {
       (err, data) => {
         if (err) {
           console.log(err, "Events cannot be created");
-          return  cb(err);
+        return  cb(err);
         }
         cb(null, data);
       }
-      );
+    );
   });
 
 };
